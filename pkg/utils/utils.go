@@ -10,11 +10,9 @@ import (
 	"github.com/samkreter/devopshelper/pkg/types"
 )
 
-
 var (
 	DirectoryAliasIdentitySearchFilter = "DirectoryAlias"
 )
-
 
 // GetReviewerFromAlias gets a reviewer from an alias
 func GetReviewerFromAlias(ctx context.Context, alias string, adoIdentityClient adoIdentity.Client) (*types.Reviewer, error) {
@@ -24,8 +22,8 @@ func GetReviewerFromAlias(ctx context.Context, alias string, adoIdentityClient a
 	}
 
 	return &types.Reviewer{
-		Alias: alias,
-		AdoID: identity.Id.String(),
+		Alias:          alias,
+		AdoID:          identity.Id.String(),
 		LastReviewTime: time.Time{},
 	}, nil
 }
@@ -51,7 +49,7 @@ func GetDevOpsIdentity(ctx context.Context, alias string, adoIdentityClient adoI
 	for _, identity := range *identities {
 		identityAlias, err := GetIdentityAlias(identity)
 		if err != nil {
-			return nil,  err
+			return nil, err
 		}
 		if strings.EqualFold(identityAlias, alias) {
 			return &identity, nil

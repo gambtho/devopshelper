@@ -7,8 +7,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/pkg/errors"
 	adogit "github.com/microsoft/azure-devops-go-api/azuredevops/git"
+	"github.com/pkg/errors"
 	"github.com/samkreter/go-core/log"
 
 	"github.com/samkreter/devopshelper/pkg/store"
@@ -27,7 +27,7 @@ func (a *AutoReviewer) Reconcile(ctx context.Context) error {
 	return nil
 }
 
-func (a *AutoReviewer) ensureAdoRepoID(ctx context.Context) error{
+func (a *AutoReviewer) ensureAdoRepoID(ctx context.Context) error {
 	logger := log.G(ctx)
 	logger.Infof("Starting Repo ID reconciling for repo: %s", a.Repo.Name)
 
@@ -79,7 +79,7 @@ func (a *AutoReviewer) ensureReviewers(ctx context.Context) error {
 			return err
 		}
 
-		reviewerGroup :=  newReviewerGroupFromOwnersFile(*ownersFile.Content)
+		reviewerGroup := newReviewerGroupFromOwnersFile(*ownersFile.Content)
 
 		for owner := range reviewerGroup.Owners {
 			reviewerAliases[owner] = true
@@ -133,7 +133,7 @@ func (a *AutoReviewer) ensureReviewers(ctx context.Context) error {
 	}
 
 	a.Repo.LastReconciled = time.Now().UTC()
-	if err := a.RepoStore.UpdateRepository(ctx,a.Repo.ID.Hex(), a.Repo); err != nil {
+	if err := a.RepoStore.UpdateRepository(ctx, a.Repo.ID.Hex(), a.Repo); err != nil {
 		return err
 	}
 
@@ -149,7 +149,7 @@ func (a *AutoReviewer) ensureTeam(ctx context.Context, teamName string, members 
 		// Add the reviewer if it doesn't exist
 		case errors.Is(err, store.ErrNotFound):
 			team := &types.Team{
-				Name: teamName,
+				Name:    teamName,
 				Members: members,
 			}
 			a.TeamStore.AddTeam(ctx, team)

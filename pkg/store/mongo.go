@@ -1,13 +1,13 @@
 package store
 
 import (
+	"context"
 	"crypto/tls"
 	"fmt"
 	"net"
 	"net/url"
 	"sync"
 	"time"
-	"context"
 
 	"github.com/globalsign/mgo"
 	"github.com/globalsign/mgo/bson"
@@ -17,11 +17,10 @@ import (
 	"github.com/samkreter/devopshelper/pkg/types"
 )
 
-
 const (
 	defaultRepositoryCollectionName = "repositories"
-	defaultReviewerCollectionName = "reviewers"
-	defaultTeamCollectionName = "teams"
+	defaultReviewerCollectionName   = "reviewers"
+	defaultTeamCollectionName       = "teams"
 )
 
 // Validate the interface implementation
@@ -34,7 +33,7 @@ type MongoStoreOptions struct {
 	DBName               string
 	RepositoryCollection string
 	ReviewerCollection   string
-	TeamCollection string
+	TeamCollection       string
 }
 
 // MongoStore implementation to interact with a mongo database
@@ -42,7 +41,7 @@ type MongoStore struct {
 	ReviewerGroupCollectionName string
 	sesson                      *mgo.Session
 	Options                     *MongoStoreOptions
-	reviewerWriteLock sync.Mutex
+	reviewerWriteLock           sync.Mutex
 }
 
 // Close closes a mongo store and it's session

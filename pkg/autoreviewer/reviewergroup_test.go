@@ -1,39 +1,37 @@
 package autoreviewer
 
-
 import (
 	"bytes"
+	"github.com/stretchr/testify/assert"
 	"log"
 	"testing"
 	"text/template"
-	"github.com/stretchr/testify/assert"
 )
 
-
-func TestParseEmailToAlias(t *testing.T){
+func TestParseEmailToAlias(t *testing.T) {
 	tests := []struct {
-		Name string
-		Email string
+		Name          string
+		Email         string
 		ExpectedAlias string
 	}{
 		{
-			Name: "Success Case",
+			Name:          "Success Case",
 			Email:         "test@gmail.com",
 			ExpectedAlias: "test",
 		},
 		{
-			Name: "Invalid Email: No Separator",
-			Email: "test",
+			Name:          "Invalid Email: No Separator",
+			Email:         "test",
 			ExpectedAlias: "",
 		},
 		{
-			Name: "Invalid Email: Extra Separators",
-			Email: "test@tester@gmail.com",
+			Name:          "Invalid Email: Extra Separators",
+			Email:         "test@tester@gmail.com",
 			ExpectedAlias: "",
 		},
 		{
-			Name: "Empty Email",
-			Email: "",
+			Name:          "Empty Email",
+			Email:         "",
 			ExpectedAlias: "",
 		},
 	}
@@ -53,28 +51,28 @@ func TestParseOwnerFile(t *testing.T) {
 		ExpectedTeams  []string
 	}{
 		{Name: "Success Case - Single Team",
-			TestOwners:     []string{PrefixGroup+"Test Team", PrefixNoNotify+"testOwenr", "testNoNotifyOwner", ";this is a comment", ""},
-			ExpectedOwners: []string {"testOwenr", "testNoNotifyOwner"},
+			TestOwners:     []string{PrefixGroup + "Test Team", PrefixNoNotify + "testOwenr", "testNoNotifyOwner", ";this is a comment", ""},
+			ExpectedOwners: []string{"testOwenr", "testNoNotifyOwner"},
 			ExpectedTeams:  []string{"Test Team"},
 		},
 		{Name: "Success Case - Multiple Team",
-			TestOwners:     []string{PrefixGroup+"Test Team", PrefixGroup+"Test Team2", PrefixNoNotify+"testOwenr", "testNoNotifyOwner", ";this is a comment", ""},
-			ExpectedOwners: []string {"testOwenr", "testNoNotifyOwner"},
+			TestOwners:     []string{PrefixGroup + "Test Team", PrefixGroup + "Test Team2", PrefixNoNotify + "testOwenr", "testNoNotifyOwner", ";this is a comment", ""},
+			ExpectedOwners: []string{"testOwenr", "testNoNotifyOwner"},
 			ExpectedTeams:  []string{"Test Team", "Test Team2"},
 		},
 		{Name: "No Team",
 			TestOwners:     []string{"testOwenr", "testNoNotifyOwner", ";this is a comment", ""},
-			ExpectedOwners: []string {"testOwenr", "testNoNotifyOwner"},
+			ExpectedOwners: []string{"testOwenr", "testNoNotifyOwner"},
 			ExpectedTeams:  []string{},
 		},
 		{Name: "No Owners",
-			TestOwners:     []string{PrefixGroup+"Test Team",";this is a comment", ""},
-			ExpectedOwners: []string {},
+			TestOwners:     []string{PrefixGroup + "Test Team", ";this is a comment", ""},
+			ExpectedOwners: []string{},
 			ExpectedTeams:  []string{"Test Team"},
 		},
 		{Name: "No Owners or Groups",
 			TestOwners:     []string{";this is a comment", ""},
-			ExpectedOwners: []string {},
+			ExpectedOwners: []string{},
 			ExpectedTeams:  []string{},
 		},
 	}
@@ -84,7 +82,7 @@ func TestParseOwnerFile(t *testing.T) {
 			ownersFile := generateTestOwnersFile(tt.TestOwners)
 			reviewerGroup := newReviewerGroupFromOwnersFile(ownersFile)
 
-			assert.Equal(t,len(tt.ExpectedTeams), len(reviewerGroup.Teams), "Should have expected number of teams")
+			assert.Equal(t, len(tt.ExpectedTeams), len(reviewerGroup.Teams), "Should have expected number of teams")
 			for _, expectTeam := range tt.ExpectedTeams {
 				assert.True(t, reviewerGroup.Teams[expectTeam], "Should have correct teams")
 			}
@@ -97,7 +95,7 @@ func TestParseOwnerFile(t *testing.T) {
 	}
 }
 
-func generateTestOwnersFile(owners []string) string{
+func generateTestOwnersFile(owners []string) string {
 	ownersFileTmpl := `
     {{range $owner := .}}
     {{$owner}}

@@ -11,7 +11,6 @@ var (
 	ErrNotFound = errors.New("record not found")
 )
 
-
 type ReviewerStore interface {
 	PopLRUReviewer(ctx context.Context, alias []string) (*types.Reviewer, error)
 	GetLRUReviewer(ctx context.Context, alias []string) (*types.Reviewer, error)

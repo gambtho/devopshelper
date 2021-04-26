@@ -24,13 +24,13 @@ type GraphUser struct {
 
 // Repository holds the information for a repository
 type Repository struct {
-	ID             bson.ObjectId  `json:"id,omitempty" bson:"_id,omitempty"`
-	Created        *time.Time     `json:"created,omitempty" bson:"_created,omitempty"`
-	Updated        *time.Time     `json:"updated,omitempty" bson:"_updated,omitempty"`
-	Name           string         `json:"name" bson:"name,omitempty"`
-	ProjectName    string         `json:"projectName" bson:"projectName,omitempty"`
-	Enabled        bool           `json:"enabled" bson:"enabled,omitempty"`
-	AdoRepoID      string         `json:"AdoRepoID" bson: "AdoRepoID,omitempty"`
+	ID             bson.ObjectId `json:"id,omitempty" bson:"_id,omitempty"`
+	Created        *time.Time    `json:"created,omitempty" bson:"_created,omitempty"`
+	Updated        *time.Time    `json:"updated,omitempty" bson:"_updated,omitempty"`
+	Name           string        `json:"name" bson:"name,omitempty"`
+	ProjectName    string        `json:"projectName" bson:"projectName,omitempty"`
+	Enabled        bool          `json:"enabled" bson:"enabled,omitempty"`
+	AdoRepoID      string        `json:"AdoRepoID" bson: "AdoRepoID,omitempty"`
 	LastReconciled time.Time
 }
 
@@ -42,7 +42,7 @@ type Reviewer struct {
 }
 
 type Team struct {
-	ID      bson.ObjectId  `json:"id,omitempty" bson:"_id,omitempty"`
-	Name    string   `json:"name" bson:"name,omitempty"`
-	Members []string `json:"members" bson:"members"`
+	ID      bson.ObjectId `json:"id,omitempty" bson:"_id,omitempty"`
+	Name    string        `json:"name" bson:"name,omitempty"`
+	Members []string      `json:"members" bson:"members"`
 }

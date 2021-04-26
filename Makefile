@@ -1,5 +1,5 @@
-SERVICE_REPO="gambtho/reviewer-service:0.0.11"
-FRONTEND_REPO="gambtho/reviewer-frontend:0.0.10"
+SERVICE_REPO="gambtho/reviewer-service:0.0.12"
+FRONTEND_REPO="gambtho/reviewer-frontend:0.0.11"
 
 
 deploy:

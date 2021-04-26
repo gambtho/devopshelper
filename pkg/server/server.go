@@ -9,7 +9,7 @@ import (
 
 	"github.com/gorilla/mux"
 	adogit "github.com/microsoft/azure-devops-go-api/azuredevops/git"
-    adoidentity "github.com/microsoft/azure-devops-go-api/azuredevops/identity"
+	adoidentity "github.com/microsoft/azure-devops-go-api/azuredevops/identity"
 	"github.com/rs/cors"
 	"github.com/samkreter/go-core/httputil"
 	"github.com/samkreter/go-core/log"
@@ -38,10 +38,10 @@ type Options struct {
 
 // Server holds configuration for the server
 type Server struct {
-	AdoGitClient adogit.Client
+	AdoGitClient      adogit.Client
 	AdoIdentityClient adoidentity.Client
-	RepoStore  store.RepositoryStore
-	Options    *Options
+	RepoStore         store.RepositoryStore
+	Options           *Options
 }
 
 // NewServer creates a new server
@@ -53,10 +53,10 @@ func NewServer(adoGitClient adogit.Client, adoIdentityClient adoidentity.Client,
 	log.G(context.TODO()).Infof("Adding admins: '%s'", strings.Join(o.Admins, ", "))
 
 	return &Server{
-		AdoGitClient: adoGitClient,
+		AdoGitClient:      adoGitClient,
 		AdoIdentityClient: adoIdentityClient,
-		RepoStore:  repoStore,
-		Options:    o,
+		RepoStore:         repoStore,
+		Options:           o,
 	}, nil
 }
 

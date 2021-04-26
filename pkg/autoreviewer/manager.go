@@ -4,9 +4,9 @@ import (
 	"context"
 	"time"
 
+	adocore "github.com/microsoft/azure-devops-go-api/azuredevops/core"
 	adogit "github.com/microsoft/azure-devops-go-api/azuredevops/git"
 	adoidentity "github.com/microsoft/azure-devops-go-api/azuredevops/identity"
-	adocore "github.com/microsoft/azure-devops-go-api/azuredevops/core"
 	"github.com/samkreter/go-core/log"
 
 	"github.com/samkreter/devopshelper/pkg/store"
@@ -19,7 +19,7 @@ var (
 
 type Manager struct {
 	AutoReviewers []*AutoReviewer
-	repoStore store.RepositoryStore
+	repoStore     store.RepositoryStore
 }
 
 func NewDefaultManager(ctx context.Context, repoStore store.RepositoryStore,
@@ -41,7 +41,7 @@ func NewDefaultManager(ctx context.Context, repoStore store.RepositoryStore,
 	aReviewers := make([]*AutoReviewer, 0, len(repos))
 	for _, repo := range enabledRepos {
 		aReviewer, err := NewAutoReviewer(adoGitClient, aodIdentityClient, adoCoreClient, defaultBotIdentifier,
-			repo, repoStore,reviewerStore, teamStore, Options{})
+			repo, repoStore, reviewerStore, teamStore, Options{})
 		if err != nil {
 			return nil, err
 		}
@@ -50,7 +50,7 @@ func NewDefaultManager(ctx context.Context, repoStore store.RepositoryStore,
 	}
 
 	return &Manager{
-		repoStore: repoStore,
+		repoStore:     repoStore,
 		AutoReviewers: aReviewers,
 	}, nil
 }

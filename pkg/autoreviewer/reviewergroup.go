@@ -11,9 +11,9 @@ import (
 )
 
 const (
-	PrefixComment = ";"
+	PrefixComment  = ";"
 	PrefixNoNotify = "*"
-	PrefixGroup = "; TEAM: "
+	PrefixGroup    = "; TEAM: "
 )
 
 var (
@@ -31,8 +31,8 @@ type ReviewerGroup struct {
 
 // GetRequiredReviewerGroups gets all required reviewers from the owners files based on changes made in the PR.
 // TODO: Use cache for finding the owners files.
-func (pr *PullRequest) GetRequiredReviewerGroups(ctx context.Context,  client adogit.Client) ([]*ReviewerGroup, error) {
-	ownerFilesMap  := map[string]*ReviewerGroup{}
+func (pr *PullRequest) GetRequiredReviewerGroups(ctx context.Context, client adogit.Client) ([]*ReviewerGroup, error) {
+	ownerFilesMap := map[string]*ReviewerGroup{}
 
 	changePaths, err := pr.GetAllChanges(ctx, client)
 	if err != nil {
@@ -103,7 +103,7 @@ func (pr *PullRequest) GetAllChanges(ctx context.Context, client adogit.Client) 
 			RepositoryId:  &repositoryID,
 			PullRequestId: pr.PullRequestId,
 			IterationId:   &iterationID,
-			Skip: &nextSkipToken,
+			Skip:          &nextSkipToken,
 		})
 		if err != nil {
 			return nil, ParseADOError(err)
@@ -132,7 +132,7 @@ func newReviewerGroupFromOwnersFile(content string) *ReviewerGroup {
 
 	reviewerGroup := ReviewerGroup{
 		Owners: map[string]bool{},
-		Teams: map[string]bool{},
+		Teams:  map[string]bool{},
 	}
 
 	for _, line := range lines {
@@ -167,7 +167,6 @@ func newReviewerGroupFromOwnersFile(content string) *ReviewerGroup {
 
 	return &reviewerGroup
 }
-
 
 func toBoolPtr(val bool) *bool {
 	return &val

@@ -11,9 +11,8 @@ import (
 	"github.com/pkg/errors"
 )
 
-
 // getTeamMemberADOIDs returns the ADO IDs for team members
-func (a *AutoReviewer) getTeamMembers(ctx context.Context, teamName string) ([]string, error){
+func (a *AutoReviewer) getTeamMembers(ctx context.Context, teamName string) ([]string, error) {
 	members, err := a.adoCoreClient.GetTeamMembersWithExtendedProperties(ctx, adocore.GetTeamMembersWithExtendedPropertiesArgs{
 		ProjectId: &a.Repo.ProjectName,
 		TeamId:    &teamName,
@@ -38,7 +37,7 @@ func (a *AutoReviewer) getTeamMembers(ctx context.Context, teamName string) ([]s
 	return aliases, nil
 }
 
-func parseEmailToAlias(email string ) string {
+func parseEmailToAlias(email string) string {
 	emailPtrs := strings.Split(email, "@")
 	if len(emailPtrs) != 2 {
 		return ""
@@ -75,7 +74,7 @@ func getChangePaths(ctx context.Context, changes []adogit.GitPullRequestChange) 
 
 		path, ok := item["path"].(string)
 		if !ok {
-			logger.Warn("failed to change path to string from ADO changes")
+			logger.Warnf("failed to change path to string from ADO changes, %+v", item)
 			continue
 		}
 
@@ -93,8 +92,8 @@ func ParseADOError(err error) error {
 	}
 
 	if adoErr.StatusCode != nil && *adoErr.StatusCode == 404 {
-		return  errors.WithStack(errNotFound)
+		return errors.WithStack(errNotFound)
 	}
 
-	return  errors.WithStack(err)
+	return errors.WithStack(err)
 }

@@ -9,10 +9,10 @@ import (
 	"time"
 
 	"github.com/microsoft/azure-devops-go-api/azuredevops"
-	adogit "github.com/microsoft/azure-devops-go-api/azuredevops/git"
-	"github.com/samkreter/go-core/log"
 	adocore "github.com/microsoft/azure-devops-go-api/azuredevops/core"
+	adogit "github.com/microsoft/azure-devops-go-api/azuredevops/git"
 	adoidentity "github.com/microsoft/azure-devops-go-api/azuredevops/identity"
+	"github.com/samkreter/go-core/log"
 
 	"github.com/samkreter/devopshelper/pkg/autoreviewer"
 	"github.com/samkreter/devopshelper/pkg/server"
@@ -24,14 +24,14 @@ const (
 )
 
 var (
-	adminsStr      string
-	enableCORS     bool
-	adoPatToken      string
-	botIdentifier string
+	adminsStr       string
+	enableCORS      bool
+	adoPatToken     string
+	botIdentifier   string
 	organizationUrl string
-	logLvl         string
-	mongoOptions   = &store.MongoStoreOptions{}
-	serverOptions  = &server.Options{}
+	logLvl          string
+	mongoOptions    = &store.MongoStoreOptions{}
+	serverOptions   = &server.Options{}
 )
 
 func main() {
@@ -61,7 +61,7 @@ func main() {
 	if err := log.SetLogLevel(logLvl); err != nil {
 		logger.Errorf("failed to set log level to : '%s'", logLvl)
 	}
-	
+
 	serverOptions.Admins = strings.Split(adminsStr, ",")
 
 	mongoStore, err := store.NewMongoStore(mongoOptions)
@@ -171,5 +171,3 @@ func getBaseStackTracer(err error) stackTracer {
 	}
 	return baseST
 }
-
-
