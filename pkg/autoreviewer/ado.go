@@ -69,13 +69,13 @@ func getChangePaths(ctx context.Context, changes []adogit.GitPullRequestChange) 
 	for _, change := range changes {
 		item, ok := change.Item.(map[string]interface{})
 		if !ok {
-			logger.Warn("failed to case ADO Item")
+			logger.Warn("failed to change ADO Item")
 			continue
 		}
 
 		path, ok := item["path"].(string)
 		if !ok {
-			logger.Warn("failed to case path to string from ADO changes")
+			logger.Warn("failed to change path to string from ADO changes")
 			continue
 		}
 

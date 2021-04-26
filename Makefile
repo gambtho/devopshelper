@@ -1,9 +1,5 @@
-
-
-REVIEWER_REPO="pskreter/vstsreviewer:1.0.12"
-
-SERVICE_REPO="pskreter/reviewer-service:0.0.10"
-FRONTEND_REPO="pskreter/reviewer-frontend:0.0.9"
+SERVICE_REPO="gambtho/reviewer-service:0.0.11"
+FRONTEND_REPO="gambtho/reviewer-frontend:0.0.10"
 
 
 deploy:
